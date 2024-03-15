@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class ChartIQTestTestNG {
+	public WebDriver driver;
+
 	static String searchButton = "//cq-toggle[@reader='Symbol Search']";
 	static String enterValue = "//label[@id='lookup_dialog_input_label']/following-sibling::input";
 	static String symbolLookup ="//h4[@id='cq-lookup-dialog-title']";
@@ -19,15 +21,15 @@ public class ChartIQTestTestNG {
 	@BeforeSuite
 	public void setupDriver(){
 		WebDriverManager.chromedriver().setup();
-		WebDriver driver = new ChromeDriver();
+		driver = new ChromeDriver();
 		
 		driver.get("https://demo.chartiq.com/");
 		driver.manage().window().maximize();
 	}
 	
 	@Test
-	public void chartIQTest(WebDriver driver) {
-		System.out.println("step1");
+	public void chartIQTest() {
+		System.out.println("Test Started");
 		driver.findElement(By.xpath(searchButton)).click();
 		String popUpwindowtitle = driver.findElement(By.xpath(symbolLookup)).getText();
 		driver.findElement(By.xpath(enterValue)).sendKeys("AAPL");
@@ -41,7 +43,7 @@ public class ChartIQTestTestNG {
 	}
 	
 	@AfterSuite
-	public void quitDriver(WebDriver driver) {
+	public void quitDriver() {
 		driver.close();
 		driver.quit();
 		
